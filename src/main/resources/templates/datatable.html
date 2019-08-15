@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+    玫瑰花数据平台
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+  <!-- CSS Files -->
+  <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../assets/css/paper-dashboard.css?v=2.0.0" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="../assets/demo/demo.css" rel="stylesheet" />
+
+  <link th:href="@{/assets/css/datatable.css}" rel="stylesheet">
+</head>
+
+<body class="">
+  <div class="wrapper ">
+    <div th:replace="commens/bar::sidebar(activeUri='showalldata')"></div>
+    <div class="main-panel">
+      <!-- Navbar -->
+      <div th:replace="commens/bar::topbar"></div>
+
+
+
+      <div class="content">
+
+        <div class="table-responsive" id="sailorTableArea">
+          <a class="btn btn-sm btn-success">导出CSV</a>
+          <table id="sailorTable" class="table table-striped table-bordered" width="100%">
+
+            <thead>
+            <tr>
+              <th>编号</th>
+              <th>上半部分平均宽度</th>
+              <th>下半部分平均宽度</th>
+              <th>平均宽度</th>
+              <th>平均高度</th>
+              <th>宽度标准差</th>
+              <th>高度标准差</th>
+              <th>重量</th>
+              <th>等级</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="rose:${roses}">
+              <td  th:text="${rose.id}"></td>
+              <td  th:text="${rose.upMean}"></td>
+              <td  th:text="${rose.bottomMean}"></td>
+              <td  th:text="${rose.totalMean}"></td>
+              <td  th:text="${rose.totalStd}"></td>
+              <td  th:text="${rose.heightStd}"></td>
+              <td  th:text="${rose.weight}"></td>
+              <td  th:text="${rose.grade}"></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

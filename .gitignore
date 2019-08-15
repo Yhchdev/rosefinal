@@ -1,0 +1,16 @@
+
+/target
+target/
+/.idea
+**/.idea
+/out
+*.iml
+
+*.class
+
+*.jar
+*.war
+*.zip
+*.rar
+*.tar.gz
+

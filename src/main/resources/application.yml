@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/rosefinal?useSSL=false&serverTimezone=UTC
+    username: root
+    password: yhchdev666
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+  jpa:
+    hibernate:
+      #     数据表的生成策略:没有——>创建,有——>看是否需要更新
+      ddl-auto: update
+
+    # 控制台打印sql语句
+    show-sql: true
+
