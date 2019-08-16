@@ -37,7 +37,14 @@
                 <!--</div>-->
                 <div class="row">
                     <div class="col-md-6" style="margin-top: 200px">
-                        <button class="btn btn-default orange-circle-button" href="" onclick="sendInstruction()">
+                        <button class="btn btn-default orange-circle-button" href="" onclick="re()">
+                            重拍<br/><br/>
+                            <span class="orange-circle-greater-than"> </span>
+                        </button>
+                    </div>
+
+                    <div class="col-md-6" style="margin-top: 200px">
+                        <button class="btn btn-default orange-circle-button" href="" onclick="assess()">
                             评估<br/>模式<br/>
                             <span class="orange-circle-greater-than"> </span>
                         </button>
@@ -53,10 +60,20 @@
 </body>
 
 <script>
-    function sendInstruction() {
+    function re() {
         $.ajax({
-            type: "et",
-            url: "/control/1/",
+            type: "get",
+            url: "/control/re/",
+            data: "",
+            success: function (msg) {
+            }
+        });
+        return false;
+    };
+    function assess() {
+        $.ajax({
+            type: "get",
+            url: "/control/assess/",
             data: "",
             success: function (msg) {
             }
