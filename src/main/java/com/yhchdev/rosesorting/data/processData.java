@@ -54,6 +54,8 @@ public class processData {
         //获取重量
         double weight = jo.getDouble("rose_weight");
 
+        double weight_format = Double.parseDouble(String.format("%.2f",weight));
+
 
 
         //等级
@@ -124,7 +126,7 @@ public class processData {
                 height_max,height_mean,height_median,height_std,
                 topw_max,topw_mean,topw_median,topw_std,
                 toph_max,toph_mean,toph_median,toph_std,plies,
-                stem_len,stem_grade,weight,grade
+                stem_len,stem_grade,weight_format,grade
                 );
     }
 }

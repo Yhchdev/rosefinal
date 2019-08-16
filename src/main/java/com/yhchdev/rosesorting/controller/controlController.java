@@ -33,7 +33,7 @@ public class controlController {
         mqttGateway.send(data,"control");
     }
 
-    //评估模式
+    //重启服务模式
     @RequestMapping(value = "/control/boot")
     public void boot(){
         mqttGateway.send("boot","control");
