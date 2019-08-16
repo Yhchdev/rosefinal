@@ -1,6 +1,7 @@
 package com.yhchdev.rosesorting.entity;
 
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -68,6 +69,33 @@ public class Rosedata {
     private double heightStd;
 
 
+    //顶部 花蕊部分 w
+    @Column(name = "topw_max")
+    private int topwMax;
+
+    @Column(name = "topw_mean")
+    private int topwMean;
+
+    @Column(name = "topw_median")
+    private int topwMedian;
+
+    @Column(name = "topw_std")
+    private int topwStd;
+
+    //顶部 花蕊部分 h
+    @Column(name = "toph_max")
+    private int tophMax;
+
+    @Column(name = "toph_mean")
+    private int tophMean;
+
+    @Column(name = "toph_median")
+    private int tophMedian;
+
+    @Column(name = "toph_std")
+    private int tophStd;
+
+
     //信息入库的时间
     @CreatedDate
     private Long createTime;
@@ -77,9 +105,24 @@ public class Rosedata {
     private double weight;
 
 
+    //层数
+    @Column
+    private Integer plies;
+
+    //杆长
+    @Column
+    private Double stem_len;
+
+    //杆长等级
+    @Column(name = "stem_grade")
+    private int stemGrade;
+
+
     //等级 grade
     @Column
     private String grade;
+
+
 
     @Column
     public double getWeight() {
@@ -240,5 +283,93 @@ public class Rosedata {
 
     public void setTotalStd(double totalStd) {
         this.totalStd = totalStd;
+    }
+
+    public Integer getPlies() {
+        return plies;
+    }
+
+    public void setPlies(Integer plies) {
+        this.plies = plies;
+    }
+
+    public Double getStem_len() {
+        return stem_len;
+    }
+
+    public void setStem_len(Double stem_len) {
+        this.stem_len = stem_len;
+    }
+
+    public int getTopwMax() {
+        return topwMax;
+    }
+
+    public void setTopwMax(int topwMax) {
+        this.topwMax = topwMax;
+    }
+
+    public int getTopwMean() {
+        return topwMean;
+    }
+
+    public void setTopwMean(int topwMean) {
+        this.topwMean = topwMean;
+    }
+
+    public int getTopwMedian() {
+        return topwMedian;
+    }
+
+    public void setTopwMedian(int topwMedian) {
+        this.topwMedian = topwMedian;
+    }
+
+    public int getTopwStd() {
+        return topwStd;
+    }
+
+    public void setTopwStd(int topwStd) {
+        this.topwStd = topwStd;
+    }
+
+    public int getTophMax() {
+        return tophMax;
+    }
+
+    public void setTophMax(int tophMax) {
+        this.tophMax = tophMax;
+    }
+
+    public int getTophMean() {
+        return tophMean;
+    }
+
+    public void setTophMean(int tophMean) {
+        this.tophMean = tophMean;
+    }
+
+    public int getTophMedian() {
+        return tophMedian;
+    }
+
+    public void setTophMedian(int tophMedian) {
+        this.tophMedian = tophMedian;
+    }
+
+    public int getTophStd() {
+        return tophStd;
+    }
+
+    public void setTophStd(int tophStd) {
+        this.tophStd = tophStd;
+    }
+
+    public int getStemGrade() {
+        return stemGrade;
+    }
+
+    public void setStemGrade(int stemGrade) {
+        this.stemGrade = stemGrade;
     }
 }

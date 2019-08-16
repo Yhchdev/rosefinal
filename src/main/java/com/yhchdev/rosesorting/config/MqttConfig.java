@@ -82,7 +82,7 @@ public class MqttConfig {
     public MessageProducer inbound() {
         MqttPahoMessageDrivenChannelAdapter adapter =
                 new MqttPahoMessageDrivenChannelAdapter(clientId+"_inbound", mqttClientFactory(),
-                        "result","result1");
+                        "resulttest","resulttest1");
         adapter.setCompletionTimeout(completionTimeout);
         adapter.setConverter(new DefaultPahoMessageConverter());
         adapter.setQos(1);
@@ -103,18 +103,16 @@ public class MqttConfig {
     public MessageHandler handler() {
         return new MessageHandler() {
             @Override
-            public void handleMessage(Message<?> message) throws MessagingException {
+            public void handleMessage(Message<?> message){
                 String topic = message.getHeaders().get("mqtt_receivedTopic").toString();
                 String type = topic.substring(topic.lastIndexOf("/")+1, topic.length());
-
-                System.out.println(message.getPayload());
 
                 //1.将数据实时发送到前端页面
                 socketServer.onMessage((String) message.getPayload());
 
                 //调用数据处理的类,处理从mqtt服务器接收到的消息
                 //2.解析并保存到数据库
-                //processData.analysisProData(message.getPayload().toString());
+                processData.analysisProData(message.getPayload().toString());
             }
         };
     }
