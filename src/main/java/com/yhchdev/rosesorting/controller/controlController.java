@@ -32,4 +32,10 @@ public class controlController {
         String data = jsonObj.toString();
         mqttGateway.send(data,"control");
     }
+
+    //评估模式
+    @RequestMapping(value = "/control/boot")
+    public void boot(){
+        mqttGateway.send("boot","control");
+    }
 }

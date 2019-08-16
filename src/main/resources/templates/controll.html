@@ -36,16 +36,23 @@
                 <!--<div style="clear: both;"></div>-->
                 <!--</div>-->
                 <div class="row">
-                    <div class="col-md-6" style="margin-top: 200px">
+                    <div class="col-md-4" style="margin-top: 200px">
                         <button class="btn btn-default orange-circle-button" href="" onclick="re()">
                             重拍<br/><br/>
                             <span class="orange-circle-greater-than"> </span>
                         </button>
                     </div>
 
-                    <div class="col-md-6" style="margin-top: 200px">
+                    <div class="col-md-4" style="margin-top: 200px">
                         <button class="btn btn-default orange-circle-button" href="" onclick="assess()">
                             评估<br/>模式<br/>
+                            <span class="orange-circle-greater-than"> </span>
+                        </button>
+                    </div>
+
+                    <div class="col-md-4" style="margin-top: 200px">
+                        <button class="btn btn-default orange-circle-button" href="" onclick="boot()">
+                            设备<br/>重启<br/>
                             <span class="orange-circle-greater-than"> </span>
                         </button>
                     </div>
@@ -80,6 +87,17 @@
         });
         return false;
     }
+    function boot() {
+        $.ajax({
+            type: "get",
+            url: "/control/boot/",
+            data: "",
+            success: function (msg) {
+            }
+        });
+        return false;
+    }
+
 </script>
 
 </html>
