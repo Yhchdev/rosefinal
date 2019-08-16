@@ -27,7 +27,7 @@ public interface RoseRepository extends JpaRepository<Rosedata, Integer> {
             "bottom_max,bottom_mean,bottom_median,bottom_std," +
             "height_max,height_mean,height_median,height_std," +
             "topw_max,topw_mean,topw_median,topw_std,"+
-            "toph_max,toph_mean,toph_median,toph_std,plies"+
+            "toph_max,toph_mean,toph_median,toph_std,plies,"+
             "stem_len,stem_grade,weight,grade)" +
             "VALUES" +
             "(?1,?2,?3,?4," +
@@ -35,8 +35,8 @@ public interface RoseRepository extends JpaRepository<Rosedata, Integer> {
             "?9,?10,?11,?12," +
             "?13,?14,?15,?16," +
             "?17,?18,?19,?20,"+
-            "?21,?22,?23,?24,"+
-            "?25,?26,?27,?28)", nativeQuery = true)
+            "?21,?22,?23,?24,?25,"+
+            "?26,?27,?28,?29)", nativeQuery = true)
     @Modifying
     @Transactional
     //JPA 执行update/delete query 需要加上事务

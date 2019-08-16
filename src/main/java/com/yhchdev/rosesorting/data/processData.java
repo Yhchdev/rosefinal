@@ -98,16 +98,16 @@ public class processData {
         int toph_std = top_h.getIntValue(3);
 
 
-
+        double stem_len;
         //杆长
-        double stem_len = jo.getDouble("height1");
+        double stem_len1 = jo.getDouble("height1");
         double stem_len2 = jo.getDouble("height2");
         //height 1 和 height2 无法区分 哪个是上半部分 哪个下半部分
         // 一般情况 杆长都会超出第一个摄像头(长度固定为480),那么杆长就为 480+ 最小的那个值(前提)
-        if(stem_len>stem_len2){
-            stem_len = 480 + stem_len;
+        if(stem_len1>stem_len2){
+            stem_len = 480.0 + stem_len2;
         }else {
-            stem_len = 480 + stem_len2;
+            stem_len = 480.0 + stem_len1;
         }
 
         // 杆长等级
@@ -118,13 +118,13 @@ public class processData {
 
 
         //插入数据
-//        roseRepository.insertRestOne(total_max,total_mean,total_median,total_std,
-//                up_max,up_mean,up_median,up_std,
-//                btttom_max,btttom_mean,btttom_median,btttom_std,
-//                height_max,height_mean,height_median,height_std,
-//                topw_max,topw_mean,topw_median,topw_std,
-//                toph_max,toph_mean,toph_median,toph_std,plies,
-//                stem_len,stem_grade,weight,grade
-//                );
+        roseRepository.insertRestOne(total_max,total_mean,total_median,total_std,
+                up_max,up_mean,up_median,up_std,
+                btttom_max,btttom_mean,btttom_median,btttom_std,
+                height_max,height_mean,height_median,height_std,
+                topw_max,topw_mean,topw_median,topw_std,
+                toph_max,toph_mean,toph_median,toph_std,plies,
+                stem_len,stem_grade,weight,grade
+                );
     }
 }
