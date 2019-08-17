@@ -1,8 +1,18 @@
 ﻿$(function () {
     // 图1 平均值
-    $.get("http://localhost:5000/rose/charts/mean/", function (data, status) {
+    $.get("http://localhost:8080/charts/median/", function (data, status) {
         if (status == "success") {
-            echarts_1(data);
+            jsonData = JSON.parse(data);
+            var top = jsonData.top;
+            var plies = jsonData.plies;
+            var total = jsonData.total;
+            var height = jsonData.height;
+            var stemlen = jsonData.stemlen;
+            var weight = jsonData.weight;
+
+            echarts_1([top,plies,total,height,stemlen,weight]);
+
+
         } else {
             console.log("获取显示数据失效")
         }
@@ -24,9 +34,10 @@
 
 
     // 图3-3 杆长分布
-    $.get("http://localhost:5000/rose/charts/stemlenDis/", function (data, status) {
+    $.get("http://localhost:8080/charts/stemlen/", function (data, status) {
         if (status == "success") {
-            echarts_33(data);
+            console.log(JSON.parse(data));
+            echarts_33(JSON.parse(data));
         } else {
             console.log("获取杆长数据失败")
         }
@@ -35,10 +46,43 @@
     //两条曲线
     echarts_4();
 
-    echarts_5();
 
-    echarts_6();
-})
+        // 图1 平均值
+        $.get("http://localhost:8080/charts/maxmin/", function (data, status) {
+            if (status == "success") {
+                jsonData = JSON.parse(data);
+
+                var totalMax = jsonData.totalMax;
+                var totalMean = jsonData.totalMean;
+                var heightMax = jsonData.heightMax;
+                var heightMean = jsonData.heightMean;
+                var topwMax = jsonData.topwMax;
+                var topwMean = jsonData.topwMean;
+                var totalStd = jsonData.totalStd;
+                var heightStd = jsonData.heightStd;
+                var topwStd = jsonData.topwStd;
+
+
+                echarts_5([totalMax, totalMean, heightMax, heightMean,totalStd,heightStd]);
+
+
+            } else {
+                console.log("获取显示数据失效")
+            }
+        });
+
+    //图六 等级比例
+    $.get("http://localhost:8080/charts/grade/",function(data,status){
+        if(status =="success"){
+            jsonGrade = JSON.parse(data);
+            var num_A = jsonGrade.A;
+            var num_B = jsonGrade.B;
+            var num_C = jsonGrade.C;
+
+            echarts_6([num_A,num_A,num_C])
+        }
+    });
+});
 
 echarts_1();
 echarts_2();
@@ -69,7 +113,7 @@ function echarts_1(echart1_mean) {
         },
         xAxis: [{
             type: 'category',
-            data: ['最大宽度', '最小宽度', '平均宽度', '平均高度', '平均杆长', '平均质量'],
+            data: ['平均直径', '平均层数', '平均宽度', '平均高度', '平均杆长', '平均质量'],
             axisLine: {
                 show: true,
                 lineStyle: {
@@ -271,7 +315,7 @@ function echarts_2() {
         myChart.resize();
     });
 }
-function echarts_5() {
+function echarts_5(data) {
     // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('echart5'));
 
@@ -293,7 +337,7 @@ function echarts_5() {
         },
         xAxis: [{
             type: 'category',
-            data: ['浙江', '上海', '江苏', '广东', '北京', '深圳', '安徽', '四川'],
+            data: ['最大宽度', '最小宽度', '最大高度', '最小高度','宽度标准差', '高度标准差'],
             axisLine: {
                 show: true,
                 lineStyle: {
@@ -346,7 +390,8 @@ function echarts_5() {
         }],
         series: [{
             type: 'bar',
-            data: [2, 3, 3, 9, 15, 12, 6, 4, 6, 7, 4, 10],
+            //data: [2, 3, 3, 9, 15, 12, 6, 4],
+            data: data,
             barWidth: '35%', //柱子宽度
             // barGap: 1, //柱子之间间距
             itemStyle: {
@@ -532,7 +577,7 @@ function echarts_4() {
 }
 
 
-function echarts_6() {
+function echarts_6(data) {
     // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('echart6'));
 
@@ -774,7 +819,7 @@ function echarts_33(data) {
             top: '70%',
             itemWidth: 10,
             itemHeight: 10,
-            data: ['45以下', '45至50', '50至55', '55至60', '60至65', '65以上'],
+            data: ['500px以下', '500至540', '540至580', '580至620', '620至660', '660px以上'],
             textStyle: {
                 color: 'rgba(255,255,255,.5)',
                 fontSize: '12',
@@ -790,12 +835,12 @@ function echarts_33(data) {
                 label: { show: false },
                 labelLine: { show: false },
                 data: [
-                    { value: data.Mini_45, name: '45以下' },
-                    { value: data.s45_50, name: '45至50' },
-                    { value: data.s50_55, name: '50至55' },
-                    { value: data.s55_60, name: '55至60' },
-                    { value: data.s60_65, name: '60至65' },
-                    { value: data.s65_Max, name: '65以上' },
+                    { value: data.mini_500, name: '500px以下' },
+                    { value: data.s500_540, name: '500至540' },
+                    { value: data.s540_580, name: '540至580' },
+                    { value: data.s580_620, name: '580至620' },
+                    { value: data.s620_660, name: '620至660' },
+                    { value: data.s660_max, name: '660px以上' }
                 ]
             }
         ]

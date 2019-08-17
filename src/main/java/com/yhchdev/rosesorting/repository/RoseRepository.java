@@ -18,6 +18,12 @@ public interface RoseRepository extends JpaRepository<Rosedata, Integer> {
     @Transactional
     List<Rosedata> nativeQueryall();
 
+    //查询等级比例
+//    @Query(value = "select count (*) from rose",nativeQuery = true)
+//    @Modifying
+//    @Transactional
+//    int querya();
+
 
 
     // insert 插入数据
