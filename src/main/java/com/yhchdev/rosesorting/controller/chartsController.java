@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -16,6 +17,36 @@ import java.util.List;
 public class chartsController {
     @Autowired
     RoseRepository roseRepository;
+
+
+    @RequestMapping("/dash/")
+    public String dash(){
+
+        //最近18朵
+        List<Rosedata> rosedataList = roseRepository.QueryRecent();
+
+         ArrayList<Double> toalmediandata = new ArrayList<Double>();
+         ArrayList<Double> heightdata = new ArrayList<Double>();
+         ArrayList<Double> toalstddata = new ArrayList<Double>();
+
+        for(Rosedata rosedata:rosedataList){
+            double toalmedian = rosedata.getTotalMedian();
+            toalmediandata.add(toalmedian);
+            double height = rosedata.getHeightMedian();
+            heightdata.add(height);
+            double toalstd = rosedata.getTotalStd();
+            toalstddata.add(toalstd);
+
+        }
+
+        JSONObject jsonObj = new JSONObject();
+
+        jsonObj.put("toalmediandata",toalmediandata);
+        jsonObj.put("heightdata",heightdata);
+        jsonObj.put("toalstddata",toalstddata);
+
+        return jsonObj.toString();
+    }
 
     //画图一 ： 属性平均值
     @RequestMapping("/median/")
@@ -117,6 +148,84 @@ public class chartsController {
         jsonObject.put("topwStd",topwStd);
 
         return jsonObject.toString();
+    }
+
+
+    //高度分布
+    @RequestMapping("/heightdis/")
+    public String heightdis(){
+        List<Rosedata> rosedataList = roseRepository.nativeQueryall();
+        int mini_30 = 0;
+        int s30_35 = 0;
+        int s35_40 = 0;
+        int s40_45 = 0;
+        int s45_50 = 0;
+        int s50_max = 0;
+        for (Rosedata rosedata: rosedataList){
+            double height = rosedata.getHeightMedian();
+            if(height<30){
+                mini_30 ++;
+            } else if(30<=height && height<35){
+                s30_35 ++;
+            }else if(height>=35 && height<40){
+                s35_40 ++;
+            }else if(height>40 && height<45){
+                s40_45 ++;
+            } else if(height>=45 && height<50){
+                s45_50 ++;
+            }else {
+                s50_max ++;
+            }
+        }
+
+        JSONObject stemlenCount = new JSONObject();
+        stemlenCount.put("mini_30",mini_30);
+        stemlenCount.put("s30_35", s30_35);
+        stemlenCount.put("s35_40",s35_40);
+        stemlenCount.put("s40_45",s40_45);
+        stemlenCount.put("s45_50",s45_50);
+        stemlenCount.put("s50_max",s50_max);
+
+        return stemlenCount.toString();
+    }
+
+
+    //宽度分布
+    @RequestMapping("/widthdis/")
+    public String widthdis(){
+        List<Rosedata> rosedataList = roseRepository.nativeQueryall();
+        int mini_30 = 0;
+        int s30_35 = 0;
+        int s35_40 = 0;
+        int s40_45 = 0;
+        int s45_50 = 0;
+        int s50_max = 0;
+        for (Rosedata rosedata: rosedataList){
+            double width = rosedata.getTotalMedian();
+            if(width<30){
+                mini_30 ++;
+            } else if(30<= width && width<35){
+                s30_35 ++;
+            }else if(width>=35 && width<40){
+                s35_40 ++;
+            }else if(width>40 && width<45){
+                s40_45 ++;
+            } else if(width>=45 && width<50){
+                s45_50 ++;
+            }else {
+                s50_max ++;
+            }
+        }
+
+        JSONObject stemlenCount = new JSONObject();
+        stemlenCount.put("mini_30",mini_30);
+        stemlenCount.put("s30_35", s30_35);
+        stemlenCount.put("s35_40",s35_40);
+        stemlenCount.put("s40_45",s40_45);
+        stemlenCount.put("s45_50",s45_50);
+        stemlenCount.put("s50_max",s50_max);
+
+        return stemlenCount.toString();
     }
 
 

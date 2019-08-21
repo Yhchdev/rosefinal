@@ -10,6 +10,8 @@ import com.yhchdev.rosesorting.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -118,6 +120,10 @@ public class processData {
         // 层数
         int plies = jo.getIntValue("plies");
 
+        //入库时间
+        Date create_time = new Date();
+
+
 
         //插入数据
         roseRepository.insertRestOne(total_max,total_mean,total_median,total_std,
@@ -126,7 +132,6 @@ public class processData {
                 height_max,height_mean,height_median,height_std,
                 topw_max,topw_mean,topw_median,topw_std,
                 toph_max,toph_mean,toph_median,toph_std,plies,
-                stem_len,stem_grade,weight_format,grade
-                );
+                stem_len,stem_grade,weight_format,grade,create_time);
     }
 }

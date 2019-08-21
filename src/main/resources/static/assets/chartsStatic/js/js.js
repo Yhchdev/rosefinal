@@ -28,9 +28,31 @@
     // });
 
     echarts_2();
-    echarts_31();
 
-    echarts_32();
+    //echarts_32();
+
+
+    // 图3-1 宽度分布
+    $.get("http://localhost:8080/charts/widthdis/", function (data, status) {
+        if (status == "success") {
+            console.log(JSON.parse(data));
+            echarts_31(JSON.parse(data));
+        } else {
+            console.log("获取宽度数据失败")
+        }
+    });
+
+    //图3-2 高度分布
+    $.get("http://localhost:8080/charts/heightdis/", function (data, status) {
+            if (status == "success") {
+                console.log(JSON.parse(data));
+                echarts_32(JSON.parse(data));
+            } else {
+                console.log("获取高度数据失败")
+            }
+        });
+
+
 
 
     // 图3-3 杆长分布
@@ -74,12 +96,9 @@
     //图六 等级比例
     $.get("http://localhost:8080/charts/grade/",function(data,status){
         if(status =="success"){
-            jsonGrade = JSON.parse(data);
-            var num_A = jsonGrade.A;
-            var num_B = jsonGrade.B;
-            var num_C = jsonGrade.C;
+            //jsonGrade = JSON.parse(data);
 
-            echarts_6([num_A,num_A,num_C])
+            echarts_6(JSON.parse(data))
         }
     });
 });
@@ -233,7 +252,7 @@ function echarts_2() {
 
             },
 
-            data: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '11']
+            data: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '11','12','13','14','15','16','17','18']
 
         }, {
 
@@ -301,7 +320,7 @@ function echarts_2() {
                         borderWidth: 12
                     }
                 },
-                data: [168.53, 259.32, 300.76, 200.67, 164.93, 130.59, 109.05, 118.07,126.2,143.17]
+                data: [168.53, 259.32, 300.76, 200.67, 164.93, 130.59, 109.05, 118.07,126.2,143.17,154.41,158.69,150.91,130.43,132.6,156.43,160.02]
 
             },
 
@@ -577,6 +596,7 @@ function echarts_4() {
 }
 
 
+//等级比例
 function echarts_6(data) {
     // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('echart6'));
@@ -617,6 +637,9 @@ function echarts_6(data) {
             trigger: 'item',
             formatter: "{a} <br/>{b} : {c} ({d}%)"
         },
+
+
+
     
         visualMap: {
             show: false,
@@ -633,9 +656,9 @@ function echarts_6(data) {
                 radius : '55%',
                 center: ['50%', '50%'],
                 data:[
-                    {value:335, name:'A'},
-                    {value:310, name:'B'},
-                    {value:274, name:'C'},
+                    {value:data.A, name:'A'},
+                    {value:data.B, name:'B'},
+                    {value:data.C, name:'C'},
                 ].sort(function (a, b) { return a.value - b.value; }),
                 roseType: 'radius',
                 label: {
@@ -678,7 +701,10 @@ function echarts_6(data) {
         myChart.resize();
     });
 }
-function echarts_31() {
+
+
+
+function echarts_31(data) {
     // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('fb1'));
     option = {
@@ -704,7 +730,7 @@ function echarts_31() {
             top: '70%',
             itemWidth: 10,
             itemHeight: 10,
-            data: ['0岁以下', '20-29岁', '30-39岁', '40-49岁', '50岁以上'],
+            data: ['30cm以下', '30至35', '35至40', '40至45', '45至50','50cm以上'],
             textStyle: {
                 color: 'rgba(255,255,255,.5)',
                 fontSize: '12',
@@ -720,11 +746,12 @@ function echarts_31() {
                 label: { show: false },
                 labelLine: { show: false },
                 data: [
-                    { value: 1, name: '0岁以下' },
-                    { value: 4, name: '20-29岁' },
-                    { value: 2, name: '30-39岁' },
-                    { value: 2, name: '40-49岁' },
-                    { value: 1, name: '50岁以上' },
+                    { value: data.mini_30, name: '30cm以下' },
+                    { value: data.s30_35, name: '30至35' },
+                    { value: data.s35_40, name: '35至40' },
+                    { value: data.s40_45, name: '40至45' },
+                    { value: data.s45_50, name: '45至50' },
+                    { value: data.s50_max, name: '50cm以上' }
                 ]
             }
         ]
@@ -736,7 +763,9 @@ function echarts_31() {
         myChart.resize();
     });
 }
-function echarts_32() {
+
+
+function echarts_32(data) {
     // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('fb2'));
     option = {
@@ -762,7 +791,7 @@ function echarts_32() {
             top: '70%',
             itemWidth: 10,
             itemHeight: 10,
-            data: ['电子商务', '教育', 'IT/互联网', '金融', '学生', '其他'],
+            data: ['30cm以下', '30至35', '35至40', '40至45', '45至50', '50cm以上'],
             textStyle: {
                 color: 'rgba(255,255,255,.5)',
                 fontSize: '12',
@@ -778,12 +807,12 @@ function echarts_32() {
                 label: { show: false },
                 labelLine: { show: false },
                 data: [
-                    { value: 5, name: '电子商务' },
-                    { value: 1, name: '教育' },
-                    { value: 6, name: 'IT/互联网' },
-                    { value: 2, name: '金融' },
-                    { value: 1, name: '学生' },
-                    { value: 1, name: '其他' },
+                    { value: data.mini_30, name: '30cm以下' },
+                    { value: data.s30_35, name: '30至35' },
+                    { value: data.s35_40, name: '35至40' },
+                    { value: data.s40_45, name: '40至45' },
+                    { value: data.s45_50, name: '45至50' },
+                    { value: data.s50_max, name: '50cm以上' }
                 ]
             }
         ]

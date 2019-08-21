@@ -1,8 +1,3 @@
-var toalmeandata = [];
-var heightdata = [];
-var toalstddata = [];
-
-
 demo = {
   initPickColor: function() {
     $('.pick-class-label').click(function() {
@@ -27,15 +22,15 @@ demo = {
       type: 'line',
 
       data: {
-        labels: ["", "2", "3", "4", "5", "6", "7", "8", "9", "10","11","12","13","14","15","16","17","18"],
+        labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10","11","12","13","14","15","16","17","18"],
         datasets: [{
             borderColor: "#6bd098",
             backgroundColor: "#6bd098",
             pointRadius: 0,
             pointHoverRadius: 0,
             borderWidth: 3,
-            //toalmeandata: [300, 310, 316, 322, 330, 326, 333, 345, 338, 354]
-            toalmeandata: []
+            toalmeandata: [300, 310, 316, 322, 330, 326, 333, 345, 338, 354]
+            //toalmeandata:
           },
           {
             borderColor: "#f17e5d",
@@ -43,8 +38,8 @@ demo = {
             pointRadius: 0,
             pointHoverRadius: 0,
             borderWidth: 3,
-            //heightdata: [320, 340, 365, 360, 370, 385, 390, 384, 408, 420]
-            heightdata: []
+            heightdata: [320, 340, 365, 360, 370, 385, 390, 384, 408, 420]
+            //heightdata: []
           },
           {
             borderColor: "#fcc468",
@@ -52,8 +47,8 @@ demo = {
             pointRadius: 0,
             pointHoverRadius: 0,
             borderWidth: 3,
-            //toalstddata: [370, 394, 415, 409, 425, 445, 460, 450, 478, 484]
-            toalstddata: []
+            toalstddata: [370, 394, 415, 409, 425, 445, 460, 450, 478, 484]
+            //toalstddata: []
           }
         ]
       },
@@ -103,6 +98,17 @@ demo = {
   },
 
   initChartsPages: function() {
+    $.get("http://localhost:8080/charts/dash/", function (data, status) {
+      if (status == "success") {
+        jsonData = (JSON.parse(data));
+        var toalmediandata = jsonData.toalmediandata;
+        var heightdata = jsonData.heightdata;
+        var toalstddata = jsonData.toalstddata;
+      } else {
+        console.log("获取宽度数据失败")
+      }
+    });
+
     chartColor = "#FFFFFF";
 
     ctx = document.getElementById('chartHours').getContext("2d");
@@ -111,14 +117,16 @@ demo = {
       type: 'line',
 
       data: {
-        labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+        labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10","11","12","13","14","15","16","17","18"],
         datasets: [{
             borderColor: "#6bd098",
             backgroundColor: "#6bd098",
             pointRadius: 0,
             pointHoverRadius: 0,
             borderWidth: 3,
-            data: [300, 310, 316, 322, 330, 326, 333, 345, 338, 354]
+            //data: [300, 310, 316, 322, 330, 326, 333]
+            //宽度信息
+            data: toalmediandata
           },
           {
             borderColor: "#f17e5d",
@@ -126,7 +134,9 @@ demo = {
             pointRadius: 0,
             pointHoverRadius: 0,
             borderWidth: 3,
-            data: [320, 340, 365, 360, 370, 385, 390, 384, 408, 420]
+            //data: [320, 340, 365, 360, 370, 385, 390, 384, 408, 420]
+            //玫瑰花高度信息
+            data: heightdata
           },
           {
             borderColor: "#fcc468",
@@ -134,8 +144,11 @@ demo = {
             pointRadius: 0,
             pointHoverRadius: 0,
             borderWidth: 3,
-            data: [370, 394, 415, 409, 425, 445, 460, 450, 478, 484]
-          }
+            //data:
+            //宽度标准差
+            data: toalstddata
+
+        }
         ]
       },
       options: {

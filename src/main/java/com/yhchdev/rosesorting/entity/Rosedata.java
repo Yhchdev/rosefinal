@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "rose")
@@ -98,7 +99,7 @@ public class Rosedata {
 
     //信息入库的时间
     @CreatedDate
-    private Long createTime;
+    private Date createTime;
 
     //质量
     @Column
@@ -245,13 +246,8 @@ public class Rosedata {
         this.heightStd = heightStd;
     }
 
-    public Long getCreateTime() {
-        return createTime;
-    }
 
-    public void setCreateTime(Long createTime) {
-        this.createTime = createTime;
-    }
+
 
     public double getTotalMax() {
         return totalMax;
@@ -259,6 +255,15 @@ public class Rosedata {
 
     public void setTotalMax(double totalMax) {
         this.totalMax = totalMax;
+    }
+
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public double getTotalMean() {

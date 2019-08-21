@@ -108,6 +108,7 @@ public class MqttConfig {
                 String type = topic.substring(topic.lastIndexOf("/")+1, topic.length());
 
                 //1.将数据实时发送到前端页面
+
                 socketServer.onMessage((String) message.getPayload());
 
                 //调用数据处理的类,处理从mqtt服务器接收到的消息
